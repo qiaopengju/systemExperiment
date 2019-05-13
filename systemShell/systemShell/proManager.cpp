@@ -136,22 +136,22 @@ void listPro(){
     }*/
     for (int i = 0; i < tlIdx; i++){
         if (TL[i].state != Del) //printf("%-16s\n", TL[i].pid.c_str());
-            printf("%-16s:\t%d\t%d\n", TL[i].pid.c_str(), TL[i].priority, TL[i].state);
+            printf("%-16s\t%d\t%d\n", TL[i].pid.c_str(), TL[i].priority, TL[i].state);
     }
     if (RL[1].size() != 0)  printf("ReadyList User:\n");
     for (int i = 0; i < RL[1].size(); i++){
-        printf("%-16s\n", RL[1][i]->pid.c_str());
-        //printf("%16s:\t%d\t%d\n", RL[1][i]->pid.c_str(), RL[1][i]->priority, RL[1][i]->state);
+        //printf("%-16s\n", RL[1][i]->pid.c_str());
+        printf("%-16s\t%d\t%d\n", RL[1][i]->pid.c_str(), RL[1][i]->priority, RL[1][i]->state);
     }
     if (RL[2].size() != 0) printf("ReadyList System:\n");
     for (int i = 0; i < RL[2].size(); i++){
-        printf("%-16s\n", RL[2][i]->pid.c_str());
-        //printf("%16s:\t%d\t%d\n", RL[2][i]->pid.c_str(), RL[2][i]->priority, RL[2][i]->state);
+        //printf("%-16s\n", RL[2][i]->pid.c_str());
+        printf("%-16s\t%d\t%d\n", RL[2][i]->pid.c_str(), RL[2][i]->priority, RL[2][i]->state);
     }
     if (BL[0].size() != 0) printf("BlockList res1:\n");
     for (int i = 0; i < BL[0].size(); i++){
         //printf("%-16s\n", BL[0][i]->pid.c_str());
-        printf("%16s:\t%d\t%d\n", BL[2][i]->pid.c_str(), BL[2][i]->priority, BL[2][i]->state);
+        printf("%-16s\t%d\t%d\n", BL[0][i]->pid.c_str(), BL[0][i]->priority, BL[0][i]->state);
     }
     if (BL[1].size() != 0) printf("BlockList res2:\n");
     for (int i = 0; i < BL[1].size(); i++){
