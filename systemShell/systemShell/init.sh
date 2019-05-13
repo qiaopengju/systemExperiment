@@ -1,0 +1,7 @@
+echo -e "1.\033[1;31mcreate process: \033[0m\tcr <name><priority>"
+echo -e "2.\033[1;31mdelete process: \033[0m\tde <name>"
+echo -e "3.\033[1;31mrequest resource: \033[0m\treq <resource name><# of units>"
+echo -e "4.\033[1;31mrelease resource: \033[0m\trel <resource name><# of units>"
+echo -e "5.\033[1;31mtime out: \033[0m\t\tto"
+echo -e "6.\033[1;31mlist all process: \033[0m\t\tls"
+echo -e "7.\033[1;31mquit: \033[0m\t\tquit"
