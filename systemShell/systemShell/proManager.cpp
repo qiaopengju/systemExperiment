@@ -55,7 +55,11 @@ void Process::set(string pid, Process* father, prPriority priority){
 
 void Process::delProcess(){
     this->state = Del;
+    scheduler();
     refreshList(this->pid);
+    for (int i = 0; i < 4; i++){ //释放资源
+        if (resUse[i] != 0) Res[i].justRelease(resUse[i]);
+    }
     for (int i = 0; i < children.size(); i++){
         children[i]->delProcess();
     }
@@ -125,15 +129,13 @@ void destroyPro(string pid){
             TL[i].delProcess();
         }
     }
-    scheduler();
 }
 
 void listPro(){
+    printf("=============================================\n");
+    printf("%-16s\t%s %s\n", "Process", "Priority", "State");
+    printf("=============================================\n");
     printf("All Process::\n");
-    /*for (int i = 0; i < TL.size(); i++){
-        if (TL[i].state != Del) //printf("%-16s\n", TL[i].pid.c_str());
-            printf("%-16s:\t%d\t%d\n", TL[i].pid.c_str(), TL[i].priority, TL[i].state);
-    }*/
     for (int i = 0; i < tlIdx; i++){
         if (TL[i].state != Del) //printf("%-16s\n", TL[i].pid.c_str());
             printf("%-16s\t%d\t%d\n", TL[i].pid.c_str(), TL[i].priority, TL[i].state);

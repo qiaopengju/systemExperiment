@@ -15,7 +15,7 @@
 
 using namespace std;
 
-enum prState{Running, Ready, Block, Del};
+enum prState{Ready,Running, Block, Del};
 enum prPriority{Init, User, System};
 
 class Process{
@@ -50,7 +50,9 @@ class Resource{
         }
         void requestRes(int);
         void releaseRes(int);
+        void justRelease(int);
 };
 
 extern Process* runningPro;
+extern Resource Res[4];
 #endif /* systemExperiment_h */

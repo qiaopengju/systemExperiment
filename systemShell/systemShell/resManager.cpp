@@ -12,8 +12,13 @@ void Resource::requestRes(int requestNum){
 }
 
 void Resource::releaseRes(int releaseNum){
-    status += releaseNum;
     runningPro->resUse[this->resKind] -= releaseNum;
+    justRelease(releaseNum);
+    scheduler(); 
+}
+
+void Resource::justRelease(int releaseNum){
+    status += releaseNum;
     int len = BL[resKind-1].size();
     for (int i = 0; i < len; i++){
         if (BL[resKind-1][0]->resNeed[resKind-1] <= status){ //阻塞队列队首可获取资源
@@ -25,7 +30,6 @@ void Resource::releaseRes(int releaseNum){
             BL[resKind-1].erase(BL[resKind-1].begin()); //从资源阻塞队列中移除
         } else break;
     }
-    scheduler(); 
 }
 
 void requestRes(string rid, int num){

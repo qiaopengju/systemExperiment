@@ -6,6 +6,4 @@
 #endif
 
 #include "proManager.hpp"
-
-extern Resource Res[4];
 #endif
