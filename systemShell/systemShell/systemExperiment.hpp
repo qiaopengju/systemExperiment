@@ -28,8 +28,11 @@ class Process{
         int resUse[4];
         int resNeed[4];
 
+        Process();
         Process(string pid, prPriority priority);
         Process(string pid, Process* father, prPriority priority);
+        void set(string pid, prPriority priority);
+        void set(string pid, Process* father, prPriority priority);
         void delProcess();
         void blockThis(int);
         void rmFromRL();

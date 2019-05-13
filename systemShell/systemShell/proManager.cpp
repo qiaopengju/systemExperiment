@@ -9,6 +9,9 @@
 
 using namespace std;
 
+Process::Process(){
+}
+
 Process::Process(string pid, Process* father, prPriority priority){
     this->pid = pid;
     this->state = Ready;
@@ -23,6 +26,26 @@ Process::Process(string pid, Process* father, prPriority priority){
 Process::Process(string pid, prPriority priority){
     this->pid = pid;
     this->state = Ready;
+    this->priority = priority;
+    for (int i = 0; i < 4; i++) {
+        resUse[i] = 0;
+        resNeed[i] = 0;
+    }
+}
+void Process::set(string pid, prPriority priority){
+    this->pid = pid;
+    this->state = Ready;
+    this->priority = priority;
+    for (int i = 0; i < 4; i++) {
+        resUse[i] = 0;
+        resNeed[i] = 0;
+    }
+}
+
+void Process::set(string pid, Process* father, prPriority priority){
+    this->pid = pid;
+    this->state = Ready;
+    this->father = father;
     this->priority = priority;
     for (int i = 0; i < 4; i++) {
         resUse[i] = 0;
@@ -81,19 +104,23 @@ void timeOut(){
 }
 
 void createPro(string pid, prPriority priority){
-    TL.push_back(Process(pid, runningPro, priority)); 
+    /*TL.push_back(Process(pid, runningPro, priority)); 
 
     RL[TL[TL.size()-1].priority].push_back(&TL[TL.size()-1]); 
     runningPro->children.push_back(&TL[TL.size()-1]);
     for (int i = 0; i < TL.size(); i++){
         if (TL[i].pid == runningPro->pid) TL[i].children.push_back(&TL[TL.size()-1]);
-    }
+    }*/
+    TL[tlIdx].set(pid, runningPro, priority);
+    RL[TL[tlIdx].priority].push_back(&TL[tlIdx]);
+    runningPro->children.push_back(&TL[tlIdx]);
 
+    tlIdx++;
     scheduler();
 }
 
 void destroyPro(string pid){
-    for (int i = 0; i < TL.size(); i++){
+    for (int i = 0; i < tlIdx/*TL.size()*/; i++){
         if (TL[i].pid == pid){
             TL[i].delProcess();
         }
@@ -103,7 +130,11 @@ void destroyPro(string pid){
 
 void listPro(){
     printf("All Process::\n");
-    for (int i = 0; i < TL.size(); i++){
+    /*for (int i = 0; i < TL.size(); i++){
+        if (TL[i].state != Del) //printf("%-16s\n", TL[i].pid.c_str());
+            printf("%-16s:\t%d\t%d\n", TL[i].pid.c_str(), TL[i].priority, TL[i].state);
+    }*/
+    for (int i = 0; i < tlIdx; i++){
         if (TL[i].state != Del) //printf("%-16s\n", TL[i].pid.c_str());
             printf("%-16s:\t%d\t%d\n", TL[i].pid.c_str(), TL[i].priority, TL[i].state);
     }

@@ -17,8 +17,10 @@ using namespace std;
 /*就绪队列/阻塞队列/时间线/正在运行进程*/
 vector<Process*> RL[3];
 vector<Process*> BL[4];
-vector<Process> TL; 
+//vector<Process> TL; 
 Process* runningPro;
+Process TL[50];
+int tlIdx(0);
 
 /*初始化资源*/
 Resource Res[4] = {
@@ -45,9 +47,14 @@ void initPrograme(){
     system("./init.sh");
     printf("===========================================================\n");
 
+    /*
     TL.push_back(Process("init", Init)); //创建0号系统进程
     runningPro = &TL[TL.size()-1];
+    */
+    TL[0].set("init", Init); tlIdx++;
+    runningPro = TL;
     RL[0].push_back(&TL[0]);
+    
     scheduler();
 }
 

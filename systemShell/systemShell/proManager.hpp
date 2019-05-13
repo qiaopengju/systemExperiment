@@ -7,8 +7,11 @@
 
 extern vector<Process*> RL[3];
 extern vector<Process*> BL[4];
-extern vector<Process> TL;
+//extern vector<Process> TL;
 extern Process lastCreatePro;
+
+extern Process TL[50];
+extern int tlIdx;
 
 void listPro();
 void scheduler();
