@@ -1,2 +1,19 @@
 cr x 1
 cr y 1
+to
+cr a 2
+to
+cr b 2
+to
+req res4 4 
+to
+req res4 2
+rel res4 2
+de a
+to
+req res4 4
+to
+req res3 3
+to
+de x
+quit

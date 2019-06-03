@@ -15,12 +15,11 @@
 using namespace std;
 
 /*就绪队列/阻塞队列/时间线/正在运行进程*/
-vector<Process*> RL[3];
-vector<Process*> BL[4];
-//vector<Process> TL; 
-Process* runningPro;
-Process TL[50];
-int tlIdx(0);
+vector<Process*> RL[3]; //就绪进程指针队列，每种优先级对应一个就绪队列
+vector<Process*> BL[4]; //阻塞进程指针队列，每种资源对应一个阻塞队列
+Process* runningPro;    //正在运行的进程
+Process TL[50];         //用来保存所有创建的进程
+int tlIdx(0);           //TL指针，指向最新创建的进程
 
 /*初始化资源*/
 Resource Res[4] = {
@@ -31,7 +30,7 @@ Resource Res[4] = {
 };
 const char PS1[] = "shell>";
 
-void initPrograme();
+void initProgram();
 void runFrontEnd(int, const char*[]);
 void quit();
 
@@ -41,7 +40,7 @@ int main(int argc, const char * argv[]) {
     return 0;
 }
 
-void initPrograme(){
+void initProgram(){
     system("clear");
     printf("==========================Welcome==========================\n");
     system("./init.sh");
@@ -64,13 +63,13 @@ void runFrontEnd(int argc, const char * argv[]){
     char cCmd[10], cId[10];
     int iCmd;
 
-    initPrograme();
-    if (mode == readFile){
+    initProgram();
+    /*if (mode == readFile){
         string readFile = "./myshell < ";
-        readFile += argv[1];
+        readFile += argv[2];
         system(readFile.c_str());
         return;
-    }
+    }*/
 
     while(1){
         PRINT_PS1();

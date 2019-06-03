@@ -32,7 +32,7 @@ void Resource::justRelease(int releaseNum){
     }
 }
 
-void requestRes(string rid, int num){
+void requestRes(string rid, int num){   //进程请求num个rid资源
     for (int i = 0; i < 4; i++){
         if (Res[i].rid == rid){
             Res[i].requestRes(num);
@@ -41,7 +41,7 @@ void requestRes(string rid, int num){
     }
 }
 
-void releaseRes(string rid, int num){
+void releaseRes(string rid, int num){   //进程释放num个rid资源
     for (int i = 0; i < 4; i++){
         if (Res[i].rid == rid){
             Res[i].releaseRes(num);

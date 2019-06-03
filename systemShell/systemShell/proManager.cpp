@@ -54,16 +54,16 @@ void Process::set(string pid, Process* father, prPriority priority){
 }
 
 void Process::delProcess(){
-    this->state = Del;
-    scheduler();
-    refreshList(this->pid);
+    this->state = Del;          //进程状态为删除
+    //scheduler();                //调用，切换进程
+    refreshList(this->pid);     //从就绪队列和阻塞队列中删除该进程指针
     for (int i = 0; i < 4; i++){ //释放资源
         if (resUse[i] != 0) Res[i].justRelease(resUse[i]);
     }
     for (int i = 0; i < children.size(); i++){
         children[i]->delProcess();
     }
-    children.clear();
+    children.clear();           //递归删除子进程
 }
 
 void Process::blockThis(int resKind){
@@ -82,10 +82,6 @@ void scheduler(){
         int idx = 0;
 
         if (RL[i].size() == 0) continue;
-        /*if (i == runningPro->priority && runningPro->state == Ready){
-            if (RL[i].size() == 1) continue;
-            else idx = 1;
-        }*/
         if (i == runningPro->priority && runningPro->state == Del) idx = 1;
 
         if (runningPro->priority < RL[i][idx]->priority || runningPro->state != Running){ //抢占进程
@@ -129,6 +125,7 @@ void destroyPro(string pid){
             TL[i].delProcess();
         }
     }
+    scheduler();                //调用，切换进程
 }
 
 void listPro(){
